@@ -2,7 +2,7 @@
 
 class Interview
 {
-	public $title = 'Interview test';
+	public static $title = 'Interview test';  /* This parameter must be static*/
 }
 
 $lipsum = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus incidunt, quasi aliquid, quod officia commodi magni eum? Provident, sed necessitatibus perferendis nisi illum quos, incidunt sit tempora quasi, pariatur natus.';
@@ -15,7 +15,7 @@ $people = array(
 	array('id'=>5, 'first_name'=>'Doug', 'last_name'=>'Simons', 'email'=>'doug.simons@hotmail.com')
 );
 
-$person = $_POST['person'];
+$person = isset($_POST['person']) ? $_POST['person'] : null; /* This parameter must be checked with isset conditional*/
 
 ?>
 
@@ -30,12 +30,12 @@ $person = $_POST['person'];
 </head>
 <body>
 
-	<h1><?=Interview::$title;?></h1>
+	<h1><?php echo Interview::$title;?></h1>
 
 	<?php
 	// Print 10 times
-	for ($i=10; $i<0; $i++) {
-		echo '<p>'+$lipsum+'</p>';
+	for ($i=10; $i>0; $i--) {  /* The (i) variable  must be decrement and the comparative sign*/
+		echo '<p>'.$lipsum.'</p>'; /* The (+) sign  must change by (.) sign */
 	}
 	?>
 
@@ -43,7 +43,7 @@ $person = $_POST['person'];
 	<hr>
 
 
-	<form method="get" action="<?=$_SERVER['REQUEST_URI'];?>">
+	<form method="post" action="<?=$_SERVER['REQUEST_URI'];?>">
 		<p><label for="firstName">First name</label> <input type="text" name="person[first_name]" id="firstName"></p>
 		<p><label for="lastName">Last name</label> <input type="text" name="person[last_name]" id="lastName"></p>
 		<p><label for="email">Email</label> <input type="text" name="person[email]" id="email"></p>
@@ -69,9 +69,9 @@ $person = $_POST['person'];
 		<tbody>
 			<?php foreach ($people as $person): ?>
 				<tr>
-					<td><?=$person->first_name;?></td>
-					<td><?=$person->last_name;?></td>
-					<td><?=$person->email;?></td>
+					<td><?=$person['first_name']; /* I changed to array to acces a class variable */?></td>
+					<td><?=$person['last_name']; /* I changed to array to acces a class variable */?></td>
+					<td><?=$person['email']; /* I changed to array to acces a class variable */?></td>
 				</tr>
 			<?php endforeach; ?>
 		</tbody>
